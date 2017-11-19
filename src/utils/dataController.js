@@ -1,20 +1,25 @@
 import axios from 'axios';
 import { SETTINGS } from '../config';
+import store from '../store/init_store';
 
 axios.defaults.baseURL = SETTINGS.BACKEND_HOST_URL;
 
 export const CryptoReactCaller = {
-    call(method, endpoint, options, success_callback, error_callback) {
+    callPromise(method, endpoint, options) {
+        const token = store.getState().user.token;
 
-        const headers = {};
+        let headers = {};
+        if (token) {
+            headers = {
+                Authorization: `Token ${token}`,
+            };
+        }
 
-        axios({
+        return axios({
             method: method,
             url: endpoint,
             data: options,
-            headers
-        })
-            .then(response => success_callback && success_callback(response))
-            .catch(error => error_callback && error_callback(error));
+            headers,
+        });
     },
 };

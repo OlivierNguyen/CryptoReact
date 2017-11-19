@@ -8,6 +8,7 @@ import AlertsList from '../../alerts/components/AlertsList';
 import AlertsForm from '../../alerts/components/AlertsForm';
 import UsersList from '../../users/components/UsersList';
 import UsersForm from '../../users/components/UsersForm';
+import Login from '../../login/components/Login';
 
 const history = createHistory();
 
@@ -80,6 +81,10 @@ export default class App extends Component {
                         </div>
                         <div style={S.container}>
                                 <Switch>
+                                    <Route
+                                        path="/login"
+                                        component={Login}
+                                    />
                                     <Route
                                         path="/alerts"
                                         component={AlertsList}
